@@ -8,6 +8,7 @@
         "format": "PKBarcodeFormatQR",
         "messageEncoding": "utf8"
     },
+    "expirationDate": "<<< FILL ME - 1970-01-01T00:00:00-00:00 >>>",
     "organizationName": "Ministério da Saúde",
     "description": "description",
     "logoText": "logoText",
