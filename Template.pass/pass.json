@@ -1,0 +1,67 @@
+{
+    "formatVersion": 1,
+    "passTypeIdentifier": "pass.io.edr.covid19digitalcertificate",
+    "serialNumber": "<<< FILL ME - Any number will work in this field. >>>",
+    "teamIdentifier": "<<< FILL ME - Use your Apple Developer team ID. >>>",
+    "barcode": {
+        "message": "<<< FILL ME - Use the string acquired from zbarimg. >>>",
+        "format": "PKBarcodeFormatQR",
+        "messageEncoding": "utf8"
+    },
+    "organizationName": "Ministério da Saúde",
+    "description": "Certificado Digital COVID da UE",
+    "logoText": "Certificado Digital COVID",
+    "foregroundColor": "rgb(255, 255, 255)",
+    "backgroundColor": "rgb(0, 169, 123)",
+    "generic": {
+        "primaryFields": [
+            {
+                "key": "names",
+                "label": "NOME / NAME",
+                "value": "<<< FILL ME >>>"
+            }
+        ],
+        "secondaryFields": [
+            {
+                "key": "data",
+                "label": "DATA DE VACINAÇÃO / DATE OF VACCINATION",
+                "value": "<<< FILL ME >>>"
+            }
+        ],
+        "auxiliaryFields": [
+            
+            {
+                "key": "vaccine",
+                "label": "VACINA / VACCINE",
+                "value": "<<< FILL ME >>>"
+            },
+            {
+                "key": "product",
+                "label": "PRODUTO / PRODUCT",
+                "value": "<<< FILL ME >>>"
+            }
+        ],
+        "backFields": [
+            {
+                "key": "fullName",
+                "label": "Nome Completo / Full Name",
+                "value": "<<< FILL ME >>>"
+            },
+            {
+                "key": "birthDate",
+                "label": "Data de Nascimento / Date of Birth",
+                "value": "<<< FILL ME >>>"
+            },
+            {
+                "key": "memberState",
+                "label": "Estado Membro de Vacinação / Member State of Vaccination",
+                "value": "<<< FILL ME >>>"
+            },
+            {
+                "label": "Identificador Único do Certificado / Unique Certificate Identifier (UVCI)",
+                "key": "identifier",
+                "value": "<<< FILL ME >>>"
+            }
+        ]
+    }
+}
