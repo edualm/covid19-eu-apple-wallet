@@ -14,7 +14,6 @@ Based on [this document](https://developer.apple.com/library/archive/documentati
 2. Run `screencapture -i $TMPDIR/screencapture.bmp && zbarimg -q --raw $TMPDIR/screencapture.bmp | pbcopy`;
 3. The QR code data should now be in your clipboard, ready to be pasted into `barcode.image`!
 
-
 ## License / Disclaimer
 
 The pass source is published under a MIT license.

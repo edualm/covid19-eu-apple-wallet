@@ -1,0 +1,14 @@
+/* EN Translations */
+"description" = "EU Digital COVID Certificate";
+"logoText" = "Digital COVID Certificate";
+"doses" = "Doses";
+"name" = "Name";
+"vaccinationDate" = "Date of Vaccination";
+"vaccine" = "Vaccine / Prophylaxis";
+"product" = "Vaccine Medical Product";
+"fullName" = "Full Name";
+"birthDate" = "Date of Birth";
+"memberState" = "Country";
+"identifier" = "Unique Certificate Identifier (UVCI)";
+"url" = "URL of the Original Certificate";
+"expirationDate" = "Expiration Date";

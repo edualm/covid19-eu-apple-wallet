@@ -9,57 +9,76 @@
         "messageEncoding": "utf8"
     },
     "organizationName": "Ministério da Saúde",
-    "description": "Certificado Digital COVID da UE",
-    "logoText": "Certificado Digital COVID",
+    "description": "description",
+    "logoText": "logoText",
     "foregroundColor": "rgb(255, 255, 255)",
     "backgroundColor": "rgb(0, 169, 123)",
     "generic": {
+        "headerFields": [
+            {
+                "key": "doses",
+                "label": "doses",
+                "value": "<<< FILL ME >>>"
+            },
+            {
+                "key": "memberState",
+                "label": "memberState",
+                "value": "<<< FILL ME >>>"
+            }
+        ],
         "primaryFields": [
             {
                 "key": "names",
-                "label": "NOME / NAME",
+                "label": "name",
                 "value": "<<< FILL ME >>>"
             }
         ],
         "secondaryFields": [
             {
                 "key": "data",
-                "label": "DATA DE VACINAÇÃO / DATE OF VACCINATION",
+                "label": "vaccinationDate",
                 "value": "<<< FILL ME >>>"
+            },
+            {
+                "key": "birthDate",
+                "label": "birthDate",
+                "value": "<<< FILL ME >>>",
+                "textAlignment": "PKTextAlignmentRight"
             }
         ],
         "auxiliaryFields": [
             
             {
                 "key": "vaccine",
-                "label": "VACINA / VACCINE",
+                "label": "vaccine",
                 "value": "<<< FILL ME >>>"
             },
             {
                 "key": "product",
-                "label": "PRODUTO / PRODUCT",
-                "value": "<<< FILL ME >>>"
+                "label": "product",
+                "value": "<<< FILL ME >>>",
+                "textAlignment": "PKTextAlignmentRight"
             }
         ],
         "backFields": [
             {
                 "key": "fullName",
-                "label": "Nome Completo / Full Name",
+                "label": "fullName",
+                "value": "<<< FILL ME >>>"
+            },
+            { 
+                "label": "expirationDate",
+                "key": "expirationDate",
                 "value": "<<< FILL ME >>>"
             },
             {
-                "key": "birthDate",
-                "label": "Data de Nascimento / Date of Birth",
-                "value": "<<< FILL ME >>>"
-            },
-            {
-                "key": "memberState",
-                "label": "Estado Membro de Vacinação / Member State of Vaccination",
-                "value": "<<< FILL ME >>>"
-            },
-            {
-                "label": "Identificador Único do Certificado / Unique Certificate Identifier (UVCI)",
+                "label": "identifier",
                 "key": "identifier",
+                "value": "<<< FILL ME >>>"
+            },
+            {
+                "label": "url",
+                "key": "url",
                 "value": "<<< FILL ME >>>"
             }
         ]
