@@ -1,0 +1,104 @@
+#!/usr/bin/env python
+
+import io
+import json
+import sys
+import zlib
+import pprint
+
+import PIL.Image
+import pyzbar.pyzbar
+import base45
+import cbor2
+
+from datetime import datetime
+
+def qr_data(path):
+    data = pyzbar.pyzbar.decode(PIL.Image.open(path))
+    return data[0].data.decode()
+
+def decode(path):
+    cert = qr_data(path)
+
+    b45data = cert.replace("HC1:", "")
+
+    zlibdata = base45.b45decode(b45data)
+
+    cbordata = zlib.decompress(zlibdata)
+
+    decoded = cbor2.loads(cbordata)
+
+    return cbor2.loads(decoded.value[2])
+
+def data_to_dict(cert_data):
+    obj = {}
+
+    obj['short_name'] = cert_data[-260][1]['nam']['gn'].title()
+    obj['name'] = obj['short_name'] + ' ' + cert_data[-260][1]['nam']['fn'].title()
+    obj['expiry_date'] = datetime.utcfromtimestamp(cert_data[4]).strftime('%d-%m-%Y %H:%M:%S (+00:00)')
+
+    obj['uvci'] = cert_data[-260][1]['v'][0]['ci']
+    obj['country_code'] = cert_data[-260][1]['v'][0]['co']
+
+    obj['doses'] = str(cert_data[-260][1]['v'][0]['dn']) + '/' + str(cert_data[-260][1]['v'][0]['sd'])
+
+    obj['date_vaccination'] = cert_data[-260][1]['v'][0]['dt']
+
+    obj['dob'] = cert_data[-260][1]['dob']
+
+    prophylaxis = cert_data[-260][1]['v'][0]['vp']
+
+    if prophylaxis == '1119349007':
+        obj['prophylaxis'] = 'Vacina COVID-19 (mRNA)'
+    elif prophylaxis == '1119349007':
+        obj['prophylaxis'] = 'Vacina COVID-19 (Antigénio)'
+    else:
+        print('Missing prophylaxis ID.')
+
+        exit()
+
+    medical_product = cert_data[-260][1]['v'][0]['mp']
+
+    if medical_product == 'EU/1/20/1528':
+        obj['medical_product'] = 'Comirnaty'
+    elif medical_product == 'EU/1/20/1507':
+        obj['medical_product'] = 'Covid-19 Vaccine Moderna'
+    else:
+        print('Missing medical product ID.')
+
+        exit()
+    
+    return obj
+
+if len(sys.argv) != 5:
+    print("Usage: " + sys.argv[0] + " <path to QR code image> <path to JSON template> <team identifier> <serial number>")
+    exit()
+
+cert_data = data_to_dict(decode(sys.argv[1]))
+
+data = {}
+
+with io.open(sys.argv[2], "r", encoding='utf8') as f:
+    data = json.load(f)
+
+data['teamIdentifier'] = sys.argv[3]
+data['serialNumber'] = int(sys.argv[4])
+
+data['barcode']['message'] = qr_data(sys.argv[1])
+data['expirationDate'] = cert_data['expiry_date']
+data['generic']['headerFields'][0]['value'] = cert_data['doses']
+data['generic']['headerFields'][1]['value'] = cert_data['country_code']
+
+data['generic']['primaryFields'][0]['value'] = cert_data['short_name']
+
+data['generic']['secondaryFields'][0]['value'] = cert_data['date_vaccination']
+data['generic']['secondaryFields'][1]['value'] = cert_data['dob']
+
+data['generic']['auxiliaryFields'][0]['value'] = cert_data['prophylaxis']
+data['generic']['auxiliaryFields'][1]['value'] = cert_data['medical_product']
+
+data['generic']['backFields'][0]['value'] = cert_data['name']
+data['generic']['backFields'][1]['value'] = cert_data['expiry_date']
+data['generic']['backFields'][2]['value'] = cert_data['uvci']
+
+print(json.dumps(data, indent=4, ensure_ascii=False))
