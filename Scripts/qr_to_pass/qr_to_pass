@@ -35,6 +35,7 @@ def data_to_dict(cert_data):
 
     obj['short_name'] = cert_data[-260][1]['nam']['gn'].title()
     obj['name'] = obj['short_name'] + ' ' + cert_data[-260][1]['nam']['fn'].title()
+    obj['expiry_date_pf'] = datetime.utcfromtimestamp(cert_data[4]).strftime('%Y-%m-%dT%H:%M:%S-00:00')
     obj['expiry_date'] = datetime.utcfromtimestamp(cert_data[4]).strftime('%d-%m-%Y %H:%M:%S (+00:00)')
 
     obj['uvci'] = cert_data[-260][1]['v'][0]['ci']
@@ -50,8 +51,8 @@ def data_to_dict(cert_data):
 
     if prophylaxis == '1119349007':
         obj['prophylaxis'] = 'Vacina COVID-19 (mRNA)'
-    elif prophylaxis == '1119349007':
-        obj['prophylaxis'] = 'Vacina COVID-19 (Antigénio)'
+    elif prophylaxis == '1119305005':
+        obj['prophylaxis'] = 'Vacina COVID-19 (antigénio)'
     else:
         print('Missing prophylaxis ID.')
 
@@ -63,6 +64,8 @@ def data_to_dict(cert_data):
         obj['medical_product'] = 'Comirnaty'
     elif medical_product == 'EU/1/20/1507':
         obj['medical_product'] = 'Covid-19 Vaccine Moderna'
+    elif medical_product == 'EU/1/20/1525':
+        obj['medical_product'] = 'COVID-19 Vaccine Janssen'
     else:
         print('Missing medical product ID.')
 
@@ -82,10 +85,10 @@ with io.open(sys.argv[2], "r", encoding='utf8') as f:
     data = json.load(f)
 
 data['teamIdentifier'] = sys.argv[3]
-data['serialNumber'] = int(sys.argv[4])
+data['serialNumber'] = sys.argv[4]
 
 data['barcode']['message'] = qr_data(sys.argv[1])
-data['expirationDate'] = cert_data['expiry_date']
+data['expirationDate'] = cert_data['expiry_date_pf']
 data['generic']['headerFields'][0]['value'] = cert_data['doses']
 data['generic']['headerFields'][1]['value'] = cert_data['country_code']
 
