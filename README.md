@@ -18,6 +18,6 @@ Based on [this document](https://developer.apple.com/library/archive/documentati
 
 The pass source is published under a MIT license.
 
-The syringe image is part of Samsung's emojis.
+The syringe image is part of Apple's emojis.
 
 The SNS logo is property of `Governo da República Portuguesa - Ministério da Saúde`.
